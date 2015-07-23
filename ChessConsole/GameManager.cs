@@ -11,6 +11,7 @@ namespace ChessConsole
     public class GameManager
     {
         private Player[] GamePlayers = new Player[2];
+        private int CurrentPlayer;
 
         static public void Start()
         {
@@ -24,22 +25,13 @@ namespace ChessConsole
             try
             {
                 while (true)
-                {
-                    Console.Write("Make a move > ");
-                    string move = Console.ReadLine();
-                    switch (move)
-                    {
-                        case "q":
-                            {
-                                Console.Write("Good bye!!!");                               
-                                throw new Exception();
-                            }                            
-                    }
-
+                {                   
+                    gm.Move();                   
                 }           
             }
             catch (Exception)
-            {                
+            {
+                Console.Write("Good bye!!!");
             }
              
             Console.ReadLine();
@@ -58,12 +50,14 @@ namespace ChessConsole
                 color.ToLower();
                 if (color == "w")
                 {
-                    GamePlayers[0] = new Player(name, SetColor.White);                    
+                    GamePlayers[0] = new Player(name, SetColor.White);
+                    CurrentPlayer = 0;
                     break;
                 }
                 else if (color == "b")
                 {
-                    GamePlayers[0] = new Player(name, SetColor.Black);                    
+                    GamePlayers[0] = new Player(name, SetColor.Black);
+                    CurrentPlayer = 1;
                     break;
                 }
                 else
@@ -75,20 +69,36 @@ namespace ChessConsole
 
             // create second player
             Console.Write("Enter a name of the second player > ");
-            name = Console.ReadLine();
-            {
-                
+            name = Console.ReadLine();                            
 
-                if (GamePlayers[0].Color == SetColor.White)
-                {
-                    GamePlayers[1] = new Player(name, SetColor.Black);                                 
-                }
-                else // first is black
-                {
-                    GamePlayers[1] = new Player(name, SetColor.White);           
-                }
-                Console.WriteLine("{0}, a color of your set is {1}", GamePlayers[1].Name, GamePlayers[1].Color.ToString());
+            if (GamePlayers[0].Color == SetColor.White)
+            {
+                GamePlayers[1] = new Player(name, SetColor.Black);                                 
             }
+            else // first is black
+            {
+                GamePlayers[1] = new Player(name, SetColor.White);           
+            }
+            Console.WriteLine("{0}, a color of your set is {1}", GamePlayers[1].Name, GamePlayers[1].Color.ToString());
+            
+        }
+
+        private void Move()
+        {            
+            Console.Write("{0}, Make a move > ", GamePlayers[CurrentPlayer].Name);
+            string move = Console.ReadLine();
+            if (move == "q")
+            {         
+                throw new Exception();
+            }
+            
+            // Validate move
+            //TODO
+            // Move player
+            //GamePlayers[CurrentPlayer].Move();
+            Console.WriteLine("Player {0}", GamePlayers[CurrentPlayer].Color.ToString());
+            CurrentPlayer = (CurrentPlayer + 1) % 2;
+            
         }
     }
 }
