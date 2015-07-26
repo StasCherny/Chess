@@ -5,8 +5,8 @@ using System.Text;
 
 namespace ChessLibrary
 {
-    public class Pawn : Piece
+    public class Queen : Piece
     {
-        public Pawn(SetColor color) : base(color) { }
+        public Queen(SetColor color) : base(color) { }
     }
 }

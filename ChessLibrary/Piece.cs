@@ -7,5 +7,14 @@ namespace ChessLibrary
 {
     public abstract class Piece
     {
+        public Piece(SetColor color)
+        {
+            Color = color;
+        }
+
+        public SetColor Color { get; set; }
+        
+            
+        
     }
 }
