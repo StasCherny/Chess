@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ChessLibrary;
 
@@ -84,19 +85,30 @@ namespace ChessConsole
         }
 
         private void Move()
-        {            
+        {
+            Console.WriteLine("Player {0}", GamePlayers[CurrentPlayer].Color.ToString());
             Console.Write("{0}, Make a move > ", GamePlayers[CurrentPlayer].Name);
             string move = Console.ReadLine();
+            move.ToLower();
             if (move == "q")
             {         
                 throw new Exception();
             }
             
-            // Validate move
-            //TODO
+            // Validate moves input
+            var moves = move.Split(' ');            
+            if (moves.Length != 2 || moves[0].Length != 2 || moves[1].Length != 2
+                ||!Regex.IsMatch(moves[0][0].ToString(),"[a-h]") || !Regex.IsMatch(moves[1][0].ToString(),"[a-h]")
+                || !Regex.IsMatch(moves[0][1].ToString(), "[1-8]") || !Regex.IsMatch(moves[1][1].ToString(), "[1-8]"))
+            {
+                Console.WriteLine("Worng syntax! (example e2 e4)");
+                return;
+            }
+            
+            Console.WriteLine("{0} {1} {2} {3}", moves[0][0], moves[0][1], moves[1][0], moves[1][1]);
+
             // Move player
-            //GamePlayers[CurrentPlayer].Move();
-            Console.WriteLine("Player {0}", GamePlayers[CurrentPlayer].Color.ToString());
+            //GamePlayers[CurrentPlayer].Move();            
             CurrentPlayer = (CurrentPlayer + 1) % 2;
             
         }
