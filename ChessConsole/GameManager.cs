@@ -13,6 +13,16 @@ namespace ChessConsole
     {
         private Player[] GamePlayers = new Player[2];
         private int CurrentPlayer;
+        private Dictionary<char,int> LetterToNumber = new Dictionary<char,int>();
+
+        public GameManager()
+        {
+            char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+            for (int i = 0; i < letters.Length; i++)
+            {
+                LetterToNumber.Add(letters[i], i + 1);
+            }
+        }
 
         static public void Start()
         {
@@ -96,19 +106,31 @@ namespace ChessConsole
             }
             
             // Validate moves input
+            //string[] sep = {" ","-" };
+            //var moves = move.Split(sep,sep.Length,StringSplitOptions.RemoveEmptyEntries);            
             var moves = move.Split(' ');            
-            if (moves.Length != 2 || moves[0].Length != 2 || moves[1].Length != 2
-                ||!Regex.IsMatch(moves[0][0].ToString(),"[a-h]") || !Regex.IsMatch(moves[1][0].ToString(),"[a-h]")
-                || !Regex.IsMatch(moves[0][1].ToString(), "[1-8]") || !Regex.IsMatch(moves[1][1].ToString(), "[1-8]"))
+            if (moves.Length != 2 || moves[0].Length != 2 || moves[1].Length != 2)             
             {
-                Console.WriteLine("Worng syntax! (example e2 e4)");
+                Console.WriteLine("Worng syntax! (ex. e2 e4)");
                 return;
             }
-            
-            Console.WriteLine("{0} {1} {2} {3}", moves[0][0], moves[0][1], moves[1][0], moves[1][1]);
 
+            if (!Regex.IsMatch(moves[0][0].ToString(),"[a-h]") || !Regex.IsMatch(moves[1][0].ToString(),"[a-h]"))
+            {
+                Console.WriteLine("Worng syntax! (range is from 'a' to 'h')");
+                return;
+            }
+
+            if (!Regex.IsMatch(moves[0][1].ToString(), "[1-8]") || !Regex.IsMatch(moves[1][1].ToString(), "[1-8]"))
+            {
+                Console.WriteLine("Worng syntax! (range is from '1' to '8')");
+                return;
+            }
+           
+            
             // Move player
-            //GamePlayers[CurrentPlayer].Move();            
+            GamePlayers[CurrentPlayer].Move(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()), 
+                                            LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));            
             CurrentPlayer = (CurrentPlayer + 1) % 2;
             
         }
