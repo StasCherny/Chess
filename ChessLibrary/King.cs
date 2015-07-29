@@ -8,5 +8,15 @@ namespace ChessLibrary
     public class King : Piece
     {
         public King(SetColor color) : base(color) { }
+
+        public override string ToString()
+        {
+            return String.Format("{0} King", Color.ToString());
+        }
+
+        public override string ToShortString()
+        {
+            return String.Format("{0}K ", (Color == SetColor.White) ? "w" : "b");
+        }
     }
 }

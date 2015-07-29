@@ -13,6 +13,7 @@ namespace ChessLibrary
         }
 
         public SetColor Color { get; set; }
+        public abstract string ToShortString();
         
             
         

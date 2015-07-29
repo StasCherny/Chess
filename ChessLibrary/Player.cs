@@ -22,8 +22,7 @@ namespace ChessLibrary
 
         private void SetPieces()
         {
-            Board board = Board.Instance;
-            board.Reset();
+            Board board = Board.Instance;            
             int destY;
 
             // Set pawns

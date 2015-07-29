@@ -9,5 +9,15 @@ namespace ChessLibrary
     {
         public Rook(SetColor color) : base(color) { }
 
+        public override string ToString()
+        {
+            return String.Format("{0} Rook", Color.ToString());
+        }
+
+        public override string ToShortString()
+        {
+            return String.Format("{0}R ", (Color == SetColor.White)?"w":"b"); 
+        }
+
     }
 }

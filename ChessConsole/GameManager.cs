@@ -31,7 +31,7 @@ namespace ChessConsole
 
             GameManager gm = new GameManager();
 
-            gm.CreatePlayers();
+            gm.CreatePlayers();            
 
             try
             {
@@ -103,6 +103,11 @@ namespace ChessConsole
             if (move == "q")
             {         
                 throw new Exception();
+            }
+            else if(move == "print")
+            {
+                Console.Write(Board.Instance.ToString());
+                return;
             }
             
             // Validate moves input
