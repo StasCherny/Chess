@@ -134,8 +134,16 @@ namespace ChessConsole
            
             
             // Move player
-            GamePlayers[CurrentPlayer].Move(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()), 
-                                            LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));            
+            try
+            {
+                GamePlayers[CurrentPlayer].Move(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()),
+                                                LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
+            }
+            catch(Exception)
+            {
+                return;
+            }
+
             CurrentPlayer = (CurrentPlayer + 1) % 2;
             
         }

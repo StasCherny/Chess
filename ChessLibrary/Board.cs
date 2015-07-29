@@ -25,9 +25,25 @@ namespace ChessLibrary
             Array.Clear(BoardOfPieces,0,BoardOfPieces.Length);
         }
 
-        public void PlacePiece(Piece piece, int destX, int destY)
+        public void PlacePiece(Piece newPiece, int destX, int destY)
         {
-            BoardOfPieces[destX,destY] = piece;
+            if (newPiece != null)
+            {
+                BoardOfPieces[destX, destY] = newPiece;
+            }
+        }
+
+        public void ReplacePiece(Piece newPiece, int destX, int destY, out Piece oldPiece)
+        {
+            oldPiece = BoardOfPieces[destX, destY];            
+            PlacePiece(newPiece, destX, destY);            
+        }
+
+        public Piece GetPiece(int destX, int destY)
+        {
+            Piece toReturn = BoardOfPieces[destX, destY];
+            BoardOfPieces[destX, destY] = null;
+            return toReturn;
         }
 
         public override string ToString()
