@@ -27,10 +27,18 @@ namespace ChessLibrary
 
         public void PlacePiece(Piece newPiece, int destX, int destY)
         {
-            if (newPiece != null)
+            if (newPiece == null)
             {
-                BoardOfPieces[destX, destY] = newPiece;
+                throw new Exception();
             }
+
+            BoardOfPieces[destX, destY] = newPiece;
+            
+        }
+
+        public void CheckPiece(int X, int Y, out Piece piece)
+        {
+            piece = BoardOfPieces[X, Y];
         }
 
         public void ReplacePiece(Piece newPiece, int destX, int destY, out Piece oldPiece)

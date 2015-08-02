@@ -18,5 +18,10 @@ namespace ChessLibrary
         {
             return String.Format("{0}B ", (Color == SetColor.White) ? "w" : "b");
         }
+
+        public override bool IsMoveValid(int origX, int origY, int destX, int destY)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -14,8 +14,6 @@ namespace ChessLibrary
 
         public SetColor Color { get; set; }
         public abstract string ToShortString();
-        
-            
-        
+        public abstract bool IsMoveValid(int origX, int origY,int destX, int destY);
     }
 }

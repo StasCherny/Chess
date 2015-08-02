@@ -59,6 +59,11 @@ namespace ChessLibrary
             destY--;
 
             Piece ourPiece = board.GetPiece(origX, origY);
+            if (ourPiece == null)
+            {
+                Console.WriteLine("This cell doesn't contain a piece");
+                throw new Exception();
+            }
             // check if it's not our color - place it where it was
             if (ourPiece.Color != this.Color)
             {
@@ -66,11 +71,12 @@ namespace ChessLibrary
                 board.PlacePiece(ourPiece, origX, origY);
                 throw new Exception();
             }
+            // check if this piece able to do this move
+            ourPiece.IsMoveValid(origX, origY,destX, destY);
+
             // place our pice on the borad
             Piece removedPiece;
             board.ReplacePiece(ourPiece, destX, destY, out removedPiece);
         }
-        
-
     }
 }
