@@ -23,26 +23,35 @@ namespace ChessLibrary
 
         public override bool IsMoveValid(int origX, int origY, int destX, int destY)
         {
-            Piece piece;
-            Board.Instance.CheckPiece(destX, destY, out piece);
-            if (piece != null && piece.Color == this.Color)
+            // base validation
+            if (!base.IsMoveValid(origX, origY, destX, destY))
             {
                 return false;
             }
-            else if (origX == destX)
+            else if (origX == destX)    // can't remove a piece on the same column
             {
                 return false;
             }
 
-            //if (origX != destX || origX + 1 != destX || origX - 1 != destX )
+            // can't move backward
+            if (destY < destX)
+            {
+                return false;
+            }
+
+            Piece piece;
+            Board.Instance.CheckPiece(destX, destY, out piece);            
+            
+
+            // can't move along a diagonal longer than one
             if ((destX - origX) > 1 || (destX - origX) < -1)
             {
                 return false;
             }
-
+            
             if (IsFirstMove)
             {
-                //if (origY + 1 != destY || origY + 2 != destY)
+                //for the first move can't move more than 2 cells
                 if ( (destY - origY) > 2 )
                 {
                     return false;
@@ -50,27 +59,32 @@ namespace ChessLibrary
 
                 if ((destY - origY) == 2)
                 {
+                    // if the first move is 2 cells, can't jump over other piece
                     Board.Instance.CheckPiece(destX, destY - 1, out piece);
                     if(piece != null)
                     {
                         return false;
                     }
                 }
-
-                IsFirstMove = false;
             }
-            else if(origY + 1 != destY)
+            else if(origY + 1 != destY) // if isn't the first move - can move only for one call
             {
                 return false;
             }
 
             if ((destX - origX) == 1 || (destX - origX) == -1)
             {
+                // if going to remove other piece it must exist and be of other color
                 Board.Instance.CheckPiece(destX, destY, out piece);
                 if (piece == null || piece.Color == this.Color)
                 {
                     return false;
                 }                
+            }
+
+            if (IsFirstMove)
+            {
+                IsFirstMove = false;
             }
 
             return true;
