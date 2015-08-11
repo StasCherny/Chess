@@ -41,18 +41,18 @@ namespace ChessLibrary
             piece = BoardOfPieces[X, Y];
         }
 
-        public void ReplacePiece(Piece newPiece, int destX, int destY, out Piece oldPiece)
+        
+        public void MovePiece(Piece newPiece, int origX, int origY, int destX, int destY, out Piece oldPiece)
         {
-            oldPiece = BoardOfPieces[destX, destY];            
-            PlacePiece(newPiece, destX, destY);            
+            CheckPiece(destX, destY, out oldPiece);
+            if (!newPiece.IsMoveValid(origX, origY, destX, destY))
+            {
+                throw new Exception();
+            }
+            PlacePiece(newPiece, destX, destY);
+            BoardOfPieces[origX, origY] = null;
         }
-
-        public Piece GetPiece(int destX, int destY)
-        {
-            Piece toReturn = BoardOfPieces[destX, destY];
-            BoardOfPieces[destX, destY] = null;
-            return toReturn;
-        }
+             
 
         public override string ToString()
         {

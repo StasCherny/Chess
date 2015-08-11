@@ -25,7 +25,7 @@ namespace ChessLibrary
                 return false;
             }
             // a piece cannot be moved to the same cell
-            if (origX == destX && origX == destX)
+            if (origX == destX && origY == destY)
             {
                 return false;
             }

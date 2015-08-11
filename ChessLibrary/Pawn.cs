@@ -28,53 +28,59 @@ namespace ChessLibrary
             {
                 return false;
             }
-            else if (origX == destX)    // can't remove a piece on the same column
+                        
+
+            Piece piece;   
+
+            // can't move along a diagonal longer than one
+            if (Math.Abs(destX - origX) > 1)
             {
                 return false;
             }
 
             // can't move backward
-            if (destY < destX)
+            if (Color == SetColor.White)
             {
-                return false;
+                if (origY > destY)
+                {
+                    return false;
+                }
             }
-
-            Piece piece;
-            Board.Instance.CheckPiece(destX, destY, out piece);            
+            else    // color is Black
+            {
+                if (origY < destY)
+                {
+                    return false;
+                }
+            }
             
 
-            // can't move along a diagonal longer than one
-            if ((destX - origX) > 1 || (destX - origX) < -1)
-            {
-                return false;
-            }
-            
             if (IsFirstMove)
             {
                 //for the first move can't move more than 2 cells
-                if ( (destY - origY) > 2 )
+                if ( Math.Abs(destY - origY) > 2 )
                 {
                     return false;
                 }
 
-                if ((destY - origY) == 2)
+                if (Math.Abs(destY - origY) == 2)
                 {
                     // if the first move is 2 cells, can't jump over other piece
-                    Board.Instance.CheckPiece(destX, destY - 1, out piece);
+                    Board.Instance.CheckPiece(destX, (origY + destY)/2, out piece);
                     if(piece != null)
                     {
                         return false;
                     }
                 }
             }
-            else if(origY + 1 != destY) // if isn't the first move - can move only for one call
+            else if(Math.Abs(destY - origY) != 1) // if isn't the first move - can move only for one call
             {
                 return false;
             }
 
-            if ((destX - origX) == 1 || (destX - origX) == -1)
+            if (Math.Abs(destX - origX) == 1)
             {
-                // if going to remove other piece it must exist and be of other color
+                // if going to remove other piece it must exist and be opposite color
                 Board.Instance.CheckPiece(destX, destY, out piece);
                 if (piece == null || piece.Color == this.Color)
                 {
@@ -86,6 +92,8 @@ namespace ChessLibrary
             {
                 IsFirstMove = false;
             }
+
+            // TODO: pawn turns to another piece on the last row
 
             return true;
         }
