@@ -50,3 +50,4 @@ ChessLibrary/obj/Debug/TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5
 ChessLibrary/obj/Debug/ChessLibrary.csproj.FileListAbsolute.txt
 ChessConsole/bin/Debug/ChessConsole.vshost.exe.manifest
 ChessConsole/obj/Debug/ChessConsole.csproj.FileListAbsolute.txt
+ChessLibraryUnitTest/obj/Debug/ChessLibraryUnitTest.csproj.FileListAbsolute.txt
