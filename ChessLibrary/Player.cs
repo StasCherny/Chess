@@ -24,42 +24,48 @@ namespace ChessLibrary
         private void SetPieces()
         {
             int destY;
-
+            Cell cell = new Cell(0, 0);
             // Set pawns
-            destY = (Color == SetColor.White) ?  1 :  6;	        
+            cell.Y = (Color == SetColor.White) ?  1 :  6;	        
             
             for (int i = 0; i < 8; i++)
             {
-                board.PlacePiece(new Pawn(Color), i, destY);
+                cell.X = i;
+                board.PlacePiece(new Pawn(Color), cell);
             }
 
-            destY = (Color == SetColor.White) ? 0 : 7;
+            cell.Y = (Color == SetColor.White) ? 0 : 7;
             // Set rooks
-            board.PlacePiece(new Rook(Color), 0, destY);
-            board.PlacePiece(new Rook(Color), 7, destY);
+            cell.X = 0;
+            board.PlacePiece(new Rook(Color), cell);
+            cell.X = 7;
+            board.PlacePiece(new Rook(Color), cell);
             // Set knights
-            board.PlacePiece(new Knight(Color), 1, destY);
-            board.PlacePiece(new Knight(Color), 6, destY);
+            cell.X = 1;
+            board.PlacePiece(new Knight(Color), cell);
+            cell.X = 6;
+            board.PlacePiece(new Knight(Color), cell);
             // Set bishops
-            board.PlacePiece(new Bishop(Color), 2, destY);
-            board.PlacePiece(new Bishop(Color), 5, destY);
+            cell.X = 2;
+            board.PlacePiece(new Bishop(Color),cell);
+            cell.X = 5;
+            board.PlacePiece(new Bishop(Color), cell);
             // Set queen
-            board.PlacePiece(new Queen(Color), 3, destY);
+            cell.X = 3;
+            board.PlacePiece(new Queen(Color), cell);
             // Set king
-            board.PlacePiece(new King(Color), 4, destY);
+            cell.X = 4;
+            board.PlacePiece(new King(Color), cell);
         }
 
-        public void Move(int origX, int origY, int destX, int destY)
-        {
-            Console.WriteLine("{0} {1} {2} {3}", origX, origY, destX, destY);
+        public void Move(Cell origCell, Cell destCell)
+        {            
             // transform user's coordinates to board's 
-            origX--;
-            origY--;
-            destX--;
-            destY--;
+            origCell.Decriment();
+            destCell.Decriment();            
 
             Piece ourPiece;
-            board.CheckPiece(origX, origY, out ourPiece);
+            board.CheckPiece(origCell, out ourPiece);
             if (ourPiece == null)
             {
                 Console.WriteLine("This cell doesn't contain a piece");
@@ -74,7 +80,7 @@ namespace ChessLibrary
             
             // move our piece on the borad
             Piece removedPiece;            
-            board.MovePiece(ourPiece, origX, origY, destX, destY, out removedPiece);
+            board.MovePiece(ourPiece, origCell,destCell, out removedPiece);
         }
     }
 }

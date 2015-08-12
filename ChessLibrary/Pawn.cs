@@ -21,10 +21,10 @@ namespace ChessLibrary
             return String.Format("{0}P ", (Color == SetColor.White) ? "w" : "b");
         }
 
-        public override bool IsMoveValid(int origX, int origY, int destX, int destY)
+        public override bool IsMoveValid(Cell origCell, Cell destCell)
         {
             // base validation
-            if (!base.IsMoveValid(origX, origY, destX, destY))
+            if (!base.IsMoveValid(origCell, destCell))
             {
                 return false;
             }
@@ -33,7 +33,7 @@ namespace ChessLibrary
             Piece piece;   
 
             // can't move along a diagonal longer than one
-            if (Math.Abs(destX - origX) > 1)
+            if (Math.Abs(destCell.X - origCell.X) > 1)
             {
                 return false;
             }
@@ -41,14 +41,14 @@ namespace ChessLibrary
             // can't move backward
             if (Color == SetColor.White)
             {
-                if (origY > destY)
+                if (origCell.Y > destCell.Y)
                 {
                     return false;
                 }
             }
             else    // color is Black
             {
-                if (origY < destY)
+                if (origCell.Y < destCell.Y)
                 {
                     return false;
                 }
@@ -58,30 +58,31 @@ namespace ChessLibrary
             if (IsFirstMove)
             {
                 //for the first move can't move more than 2 cells
-                if ( Math.Abs(destY - origY) > 2 )
+                if ( Math.Abs(destCell.Y - origCell.Y) > 2 )
                 {
                     return false;
                 }
 
-                if (Math.Abs(destY - origY) == 2)
+                if (Math.Abs(destCell.Y - origCell.Y) == 2)
                 {
                     // if the first move is 2 cells, can't jump over other piece
-                    Board.Instance.CheckPiece(destX, (origY + destY)/2, out piece);
+                    Cell newCell = new Cell(destCell.X, (origCell.Y + destCell.Y) / 2);                    
+                    Board.Instance.CheckPiece(newCell, out piece);
                     if(piece != null)
                     {
                         return false;
                     }
                 }
             }
-            else if(Math.Abs(destY - origY) != 1) // if isn't the first move - can move only for one call
+            else if(Math.Abs(destCell.Y - origCell.Y) != 1) // if isn't the first move - can move only for one call
             {
                 return false;
             }
 
-            if (Math.Abs(destX - origX) == 1)
+            if (Math.Abs(destCell.X - origCell.X) == 1)
             {
                 // if going to remove other piece it must exist and be opposite color
-                Board.Instance.CheckPiece(destX, destY, out piece);
+                Board.Instance.CheckPiece(destCell, out piece);
                 if (piece == null || piece.Color == this.Color)
                 {
                     return false;

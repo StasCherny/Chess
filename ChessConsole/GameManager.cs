@@ -136,11 +136,13 @@ namespace ChessConsole
             // Move player
             try
             {
-                GamePlayers[CurrentPlayer].Move(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()),
-                                                LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
+                Cell origCell = new Cell(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()));
+                Cell destCell = new Cell(LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
+                GamePlayers[CurrentPlayer].Move(origCell, destCell);
             }
-            catch(Exception)
+            catch(Exception e)
             {
+                Console.WriteLine(e.Message);
                 return;
             }
 

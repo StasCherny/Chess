@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Bishop.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="King.cs" />
     <Compile Include="Knight.cs" />
     <Compile Include="Pawn.cs" />

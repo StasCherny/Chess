@@ -3,21 +3,21 @@
   <Class Name="ChessLibrary.Player">
     <Position X="2" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAQAAAACAAAAIAAAgAAAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Board">
     <Position X="10.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEABAAEAAAACAAEAABAAAACQAAAAAAAAAA=</HashCode>
       <FileName>Board.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Piece">
     <Position X="7.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAIgAAAAAA=</HashCode>
       <FileName>Piece.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -28,45 +28,52 @@
   <Class Name="ChessLibrary.Pawn">
     <Position X="2" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAIAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Pawn.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Knight">
     <Position X="4.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Knight.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Bishop">
     <Position X="6.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Bishop.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Rook">
     <Position X="8.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Rook.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.Queen">
     <Position X="11.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>Queen.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ChessLibrary.King">
     <Position X="13.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAIAAAAAAAAAAAIAAAAAAA=</HashCode>
       <FileName>King.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Struct Name="ChessLibrary.Cell">
+    <Position X="13.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>Cell.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Enum Name="ChessLibrary.SetColor">
     <Position X="13.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>

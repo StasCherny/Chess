@@ -25,32 +25,32 @@ namespace ChessLibrary
             Array.Clear(BoardOfPieces,0,BoardOfPieces.Length);
         }
 
-        public void PlacePiece(Piece newPiece, int destX, int destY)
+        public void PlacePiece(Piece newPiece, Cell cell)
         {
             if (newPiece == null)
             {
                 throw new Exception();
             }
 
-            BoardOfPieces[destX, destY] = newPiece;
+            BoardOfPieces[cell.X, cell.Y] = newPiece;
             
         }
 
-        public void CheckPiece(int X, int Y, out Piece piece)
+        public void CheckPiece(Cell cell, out Piece piece)
         {
-            piece = BoardOfPieces[X, Y];
+            piece = BoardOfPieces[cell.X, cell.Y];
         }
 
         
-        public void MovePiece(Piece newPiece, int origX, int origY, int destX, int destY, out Piece oldPiece)
+        public void MovePiece(Piece newPiece, Cell origCell, Cell destCell, out Piece oldPiece)
         {
-            CheckPiece(destX, destY, out oldPiece);
-            if (!newPiece.IsMoveValid(origX, origY, destX, destY))
+            CheckPiece(destCell, out oldPiece);
+            if (!newPiece.IsMoveValid(origCell, destCell))
             {
                 throw new Exception();
             }
-            PlacePiece(newPiece, destX, destY);
-            BoardOfPieces[origX, origY] = null;
+            PlacePiece(newPiece, destCell);
+            BoardOfPieces[origCell.X, origCell.Y] = null;
         }
              
 
