@@ -21,21 +21,17 @@ namespace ChessLibrary
             return String.Format("{0}P ", (Color == SetColor.White) ? "w" : "b");
         }
 
-        public override bool IsMoveValid(Cell origCell, Cell destCell)
+        public override void MoveValidation(Cell origCell, Cell destCell)
         {
             // base validation
-            if (!base.IsMoveValid(origCell, destCell))
-            {
-                return false;
-            }
+            base.MoveValidation(origCell, destCell);        
                         
-
             Piece piece;   
 
             // can't move along a diagonal longer than one
             if (Math.Abs(destCell.X - origCell.X) > 1)
             {
-                return false;
+                throw new MovePieceException(this.ToString() + " can't move along a diagonal longer than one");
             }
 
             // can't move backward
@@ -43,14 +39,14 @@ namespace ChessLibrary
             {
                 if (origCell.Y > destCell.Y)
                 {
-                    return false;
+                    throw new MovePieceException(this.ToString() + " can't move backward");
                 }
             }
             else    // color is Black
             {
                 if (origCell.Y < destCell.Y)
                 {
-                    return false;
+                    throw new MovePieceException(this.ToString() + " can't move backward");
                 }
             }
             
@@ -60,7 +56,7 @@ namespace ChessLibrary
                 //for the first move can't move more than 2 cells
                 if ( Math.Abs(destCell.Y - origCell.Y) > 2 )
                 {
-                    return false;
+                    throw new MovePieceException(this.ToString() + " can't move more than 2 cells");
                 }
 
                 if (Math.Abs(destCell.Y - origCell.Y) == 2)
@@ -70,13 +66,13 @@ namespace ChessLibrary
                     Board.Instance.CheckPiece(newCell, out piece);
                     if(piece != null)
                     {
-                        return false;
+                        throw new MovePieceException(this.ToString() + " can't move over an other piece");
                     }
                 }
             }
             else if(Math.Abs(destCell.Y - origCell.Y) != 1) // if isn't the first move - can move only for one call
             {
-                return false;
+                throw new MovePieceException(this.ToString() + " can't move more than 1 cell");
             }
 
             if (Math.Abs(destCell.X - origCell.X) == 1)
@@ -85,7 +81,7 @@ namespace ChessLibrary
                 Board.Instance.CheckPiece(destCell, out piece);
                 if (piece == null || piece.Color == this.Color)
                 {
-                    return false;
+                    throw new MovePieceException("Wrong piece to remove");
                 }                
             }
 
@@ -94,9 +90,7 @@ namespace ChessLibrary
                 IsFirstMove = false;
             }
 
-            // TODO: pawn turns to another piece on the last row
-
-            return true;
+            // TODO: pawn turns to another piece on the last row            
         }
     }
 }

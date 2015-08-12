@@ -45,10 +45,7 @@ namespace ChessLibrary
         public void MovePiece(Piece newPiece, Cell origCell, Cell destCell, out Piece oldPiece)
         {
             CheckPiece(destCell, out oldPiece);
-            if (!newPiece.IsMoveValid(origCell, destCell))
-            {
-                throw new Exception();
-            }
+            newPiece.MoveValidation(origCell, destCell);    // will thorw exception on error            
             PlacePiece(newPiece, destCell);
             BoardOfPieces[origCell.X, origCell.Y] = null;
         }

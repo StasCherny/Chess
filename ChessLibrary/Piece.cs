@@ -14,23 +14,23 @@ namespace ChessLibrary
 
         public SetColor Color { get; set; }
         public abstract string ToShortString();
-        public virtual bool IsMoveValid(Cell origCell, Cell destCell)
+        public virtual void MoveValidation(Cell origCell, Cell destCell)
         {
             Piece piece;
             Board.Instance.CheckPiece(destCell, out piece);
 
-            // a piece of the same color cannot be removed
-            if (piece != null && piece.Color == this.Color)
-            {
-                return false;
-            }
             // a piece cannot be moved to the same cell
             if (origCell.X == destCell.X && origCell.Y == destCell.Y)
             {
-                return false;
+                throw new MovePieceException("You can't move a piece to the same cell");
             }
 
-            return true;
+            // a piece of the same color cannot be removed
+            if (piece != null && piece.Color == this.Color)
+            {
+                throw new MovePieceException("You can't remove a piece of the same color");
+            }
+                      
         }
     }
 }

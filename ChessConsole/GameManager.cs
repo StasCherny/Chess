@@ -140,7 +140,7 @@ namespace ChessConsole
                 Cell destCell = new Cell(LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
                 GamePlayers[CurrentPlayer].Move(origCell, destCell);
             }
-            catch(Exception e)
+            catch(MovePieceException e)
             {
                 Console.WriteLine(e.Message);
                 return;

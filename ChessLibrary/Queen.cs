@@ -19,7 +19,7 @@ namespace ChessLibrary
             return String.Format("{0}Q ", (Color == SetColor.White) ? "w" : "b");
         }
 
-        public override bool IsMoveValid(Cell origCell, Cell destCell)
+        public override void MoveValidation(Cell origCell, Cell destCell)
         {
             throw new NotImplementedException();
         }

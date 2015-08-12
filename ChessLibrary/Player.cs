@@ -22,8 +22,7 @@ namespace ChessLibrary
 
 
         private void SetPieces()
-        {
-            int destY;
+        {            
             Cell cell = new Cell(0, 0);
             // Set pawns
             cell.Y = (Color == SetColor.White) ?  1 :  6;	        
@@ -67,15 +66,13 @@ namespace ChessLibrary
             Piece ourPiece;
             board.CheckPiece(origCell, out ourPiece);
             if (ourPiece == null)
-            {
-                Console.WriteLine("This cell doesn't contain a piece");
-                throw new Exception();
+            {                
+                throw new MovePieceException("This cell doesn't contain a piece");
             }
             // check if it's not our color - place it where it was
             if (ourPiece.Color != this.Color)
-            {
-                Console.WriteLine("You trying to move {0} that isn't your piece", ourPiece.ToString());
-                throw new Exception();
+            {                
+                throw new MovePieceException("You trying to move " + ourPiece.ToString() + "that isn't your piece");
             }
             
             // move our piece on the borad
