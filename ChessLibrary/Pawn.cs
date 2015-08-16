@@ -62,8 +62,8 @@ namespace ChessLibrary
                 if (Math.Abs(destCell.Y - origCell.Y) == 2)
                 {
                     // if the first move is 2 cells, can't jump over other piece
-                    Cell newCell = new Cell(destCell.X, (origCell.Y + destCell.Y) / 2);                    
-                    Board.Instance.CheckPiece(newCell, out piece);
+                    Cell newCell = new Cell(destCell.X, (origCell.Y + destCell.Y) / 2);
+                    piece = Board.Instance.CheckPiece(newCell);
                     if(piece != null)
                     {
                         throw new MovePieceException(this.ToString() + " can't move over an other piece");
@@ -78,7 +78,7 @@ namespace ChessLibrary
             if (Math.Abs(destCell.X - origCell.X) == 1)
             {
                 // if going to remove other piece it must exist and be opposite color
-                Board.Instance.CheckPiece(destCell, out piece);
+                piece = Board.Instance.CheckPiece(destCell);
                 if (piece == null || piece.Color == this.Color)
                 {
                     throw new MovePieceException("Wrong piece to remove");

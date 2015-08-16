@@ -36,18 +36,20 @@ namespace ChessLibrary
             
         }
 
-        public void CheckPiece(Cell cell, out Piece piece)
+        public Piece CheckPiece(Cell cell)
         {
-            piece = BoardOfPieces[cell.X, cell.Y];
+            return BoardOfPieces[cell.X, cell.Y];
         }
 
         
-        public void MovePiece(Piece newPiece, Cell origCell, Cell destCell, out Piece oldPiece)
+        public Piece MovePiece(Piece newPiece, Cell origCell, Cell destCell)
         {
-            CheckPiece(destCell, out oldPiece);
+            Piece oldPiece = CheckPiece(destCell);
             newPiece.MoveValidation(origCell, destCell);    // will thorw exception on error            
             PlacePiece(newPiece, destCell);
             BoardOfPieces[origCell.X, origCell.Y] = null;
+
+            return oldPiece;
         }
              
 

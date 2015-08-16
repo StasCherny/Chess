@@ -16,8 +16,7 @@ namespace ChessLibrary
         public abstract string ToShortString();
         public virtual void MoveValidation(Cell origCell, Cell destCell)
         {
-            Piece piece;
-            Board.Instance.CheckPiece(destCell, out piece);
+            Piece piece = Board.Instance.CheckPiece(destCell);
 
             // a piece cannot be moved to the same cell
             if (origCell.X == destCell.X && origCell.Y == destCell.Y)

@@ -63,8 +63,8 @@ namespace ChessLibrary
             origCell.Decriment();
             destCell.Decriment();            
 
-            Piece ourPiece;
-            board.CheckPiece(origCell, out ourPiece);
+            Piece ourPiece = board.CheckPiece(origCell);
+
             if (ourPiece == null)
             {                
                 throw new MovePieceException("This cell doesn't contain a piece");
@@ -76,8 +76,7 @@ namespace ChessLibrary
             }
             
             // move our piece on the borad
-            Piece removedPiece;            
-            board.MovePiece(ourPiece, origCell,destCell, out removedPiece);
+            Piece removedPiece = board.MovePiece(ourPiece, origCell, destCell);
         }
     }
 }
