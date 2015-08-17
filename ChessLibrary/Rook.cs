@@ -21,7 +21,16 @@ namespace ChessLibrary
 
         public override void MoveValidation(Cell origCell, Cell destCell)
         {
-            throw new NotImplementedException();
+            base.MoveValidation(origCell, destCell);
+
+            // check if is moving along a line
+            if (!Board.Instance.IsLine(origCell,destCell))
+            {
+                throw new MovePieceException(this.ToString() + " can move only along a line");
+            }
+
+            // check if no other piece on the way
+
         }
     }
 }

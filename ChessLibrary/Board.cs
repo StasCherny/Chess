@@ -75,5 +75,54 @@ namespace ChessLibrary
             sb.AppendLine();
             return sb.ToString();
         }
+
+        public bool IsLine(Cell origCell,Cell destCell)
+        {
+            if (origCell.X == destCell.X && origCell.Y != destCell.Y)
+            {
+                return true;
+            }
+
+            if (origCell.Y == destCell.Y && origCell.X != destCell.X)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public int GetNumberOfPiecesOnLine(Cell origCell, Cell destCell)
+        {
+            int PiecesCount = 0;
+            // vertical line
+            if (origCell.X == destCell.X && origCell.Y != destCell.Y)
+            {
+                int length = Math.Abs(destCell.Y - origCell.Y);
+                Cell checkCell = new Cell();
+                checkCell.X = origCell.X;                
+                for (checkCell.Y = (origCell.Y < destCell.Y)? origCell.Y : destCell.Y; checkCell.Y < length; checkCell.Y++)
+                {                     
+                    if (Board.Instance.CheckPiece(checkCell) != null)
+                    {
+                        PiecesCount++;
+                    }
+                }
+            }
+            else if(origCell.Y == destCell.Y && origCell.X != destCell.X)   // horizontal line
+            {
+                int length = Math.Abs(destCell.X - origCell.X);
+                Cell checkCell = new Cell();
+                checkCell.Y = origCell.Y;
+                for (checkCell.X = (origCell.X < destCell.X) ? origCell.X : destCell.X; checkCell.X < length; checkCell.X++)
+                {
+                    if (Board.Instance.CheckPiece(checkCell) != null)
+                    {
+                        PiecesCount++;
+                    }
+                }
+            }           
+
+            return PiecesCount;
+        }
     }
 }
