@@ -19,7 +19,7 @@ namespace ChessLibrary
             Piece piece = Board.Instance.CheckPiece(destCell);
 
             // a piece cannot be moved to the same cell
-            if (origCell.X == destCell.X && origCell.Y == destCell.Y)
+            if (origCell == destCell)
             {
                 throw new MovePieceException("You can't move a piece to the same cell");
             }

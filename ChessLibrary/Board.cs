@@ -97,7 +97,7 @@ namespace ChessLibrary
             // vertical line
             if (origCell.X == destCell.X && origCell.Y != destCell.Y)
             {
-                int length = Math.Abs(destCell.Y - origCell.Y);
+                int length = Math.Abs(destCell.Y - origCell.Y) + 1;
                 Cell checkCell = new Cell();
                 checkCell.X = origCell.X;                
                 for (checkCell.Y = (origCell.Y < destCell.Y)? origCell.Y : destCell.Y; checkCell.Y < length; checkCell.Y++)
@@ -110,7 +110,7 @@ namespace ChessLibrary
             }
             else if(origCell.Y == destCell.Y && origCell.X != destCell.X)   // horizontal line
             {
-                int length = Math.Abs(destCell.X - origCell.X);
+                int length = Math.Abs(destCell.X - origCell.X) + 1;
                 Cell checkCell = new Cell();
                 checkCell.Y = origCell.Y;
                 for (checkCell.X = (origCell.X < destCell.X) ? origCell.X : destCell.X; checkCell.X < length; checkCell.X++)
@@ -121,6 +121,39 @@ namespace ChessLibrary
                     }
                 }
             }           
+
+            return PiecesCount;
+        }
+
+        public bool IsDiagonal(Cell origCell, Cell destCell)
+        {
+            if (origCell != destCell && (Math.Abs(origCell.X - destCell.X) == Math.Abs(origCell.Y - destCell.Y)))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public int GetNumberOfPiecesOnDiagonal(Cell origCell, Cell destCell)
+        {
+            int PiecesCount = 0;
+
+            if (IsDiagonal(origCell,destCell))
+            {
+                int length = Math.Abs(origCell.X - destCell.X) + 1;
+                int stepX = (origCell.X < destCell.X) ? 1 : -1;
+                int stepY = (origCell.Y < destCell.Y) ? 1 : -1;
+                Cell checkCell = origCell;
+                for (int i = 0; i < length; i++)
+                {
+                    if (Board.Instance.CheckPiece(checkCell) != null)
+                    {
+                        PiecesCount++;
+                    }
+                    checkCell.X += stepX;
+                    checkCell.Y += stepY;
+                }
+            }
 
             return PiecesCount;
         }

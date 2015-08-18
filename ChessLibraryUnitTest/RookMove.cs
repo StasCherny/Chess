@@ -9,6 +9,7 @@ namespace ChessLibrary.Tests
         [TestMethod()]
         public void RookMoveValidationTest_Success()
         {
+            Board.Instance.Reset();
             Rook white_rook = new Rook(SetColor.White);
             Rook black_rook = new Rook(SetColor.Black);
 
@@ -30,7 +31,8 @@ namespace ChessLibrary.Tests
 
         [TestMethod()]
         public void RookMoveValidationTest_Fail()
-        {      
+        {
+            Board.Instance.Reset();
             Rook white_rook = new Rook(SetColor.White);
 
             Cell origCell = new Cell(0, 0);

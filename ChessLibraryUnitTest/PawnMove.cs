@@ -9,7 +9,8 @@ namespace ChessLibrary.Tests
     {       
         [TestMethod()]
         public void PawnMoveValidationTest_Success()
-        {            
+        {
+            Board.Instance.Reset();
             Pawn white_pawn = new Pawn(SetColor.White);
             Cell origCell = new Cell(1,1);            
 
@@ -47,6 +48,7 @@ namespace ChessLibrary.Tests
         [TestMethod()]     
         public void PawnMoveValidationTest_Fail()
         {
+            Board.Instance.Reset();
             Pawn white_pawn = new Pawn(SetColor.White);
             Pawn white_pawn2 = new Pawn(SetColor.White);
             Cell origCell = new Cell(1, 1);
