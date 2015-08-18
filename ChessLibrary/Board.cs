@@ -43,9 +43,9 @@ namespace ChessLibrary
 
         
         public Piece MovePiece(Piece newPiece, Cell origCell, Cell destCell)
-        {
-            Piece oldPiece = CheckPiece(destCell);
+        {            
             newPiece.MoveValidation(origCell, destCell);    // will thorw exception on error            
+            Piece oldPiece = CheckPiece(destCell);
             PlacePiece(newPiece, destCell);
             BoardOfPieces[origCell.X, origCell.Y] = null;
 
