@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static ChessLibrary.Tests.MoveValidator;
 
 namespace ChessLibrary.Tests
 {
@@ -40,16 +41,16 @@ namespace ChessLibrary.Tests
 
             Board.Instance.PlacePiece(white_rook, origCell);
 
-            MoveValidator.MoveValidatorDelegate rook_moveValid = delegate () { white_rook.MoveValidation(origCell, destCell); };
+            MoveValidatorDelegate rook_moveValid = delegate () { white_rook.MoveValidation(origCell, destCell); };
 
             // can move along a line only 
-            MoveValidator.AssertDoesNotThrowException(rook_moveValid);
+            AssertDoesNotThrowException(rook_moveValid);
 
             // can't remove a piece of the same color
             Rook white_rook2 = new Rook(SetColor.White);
             destCell.Y = 0;
             Board.Instance.PlacePiece(white_rook2, destCell);
-            MoveValidator.AssertDoesNotThrowException(rook_moveValid);
+            AssertDoesNotThrowException(rook_moveValid);
 
             // can't move while an other piece on the way
             Board.Instance.Reset();
@@ -57,7 +58,7 @@ namespace ChessLibrary.Tests
             destCell.X = 3;
             Board.Instance.PlacePiece(white_rook2, destCell);
             destCell.X = 7;
-            MoveValidator.AssertDoesNotThrowException(rook_moveValid);
+            AssertDoesNotThrowException(rook_moveValid);
         }
     }
 }

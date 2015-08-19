@@ -21,7 +21,21 @@ namespace ChessLibrary
 
         public override void MoveValidation(Cell origCell, Cell destCell)
         {
-            throw new NotImplementedException();
+            // base validation
+            base.MoveValidation(origCell, destCell);
+
+            if (Math.Abs(origCell.X - destCell.X) == 2 && Math.Abs(origCell.Y - destCell.Y) == 1)
+            {
+                return;
+            }
+
+            if (Math.Abs(origCell.Y - destCell.Y) == 2 && Math.Abs(origCell.X - destCell.X) == 1)
+            {
+                return;
+            }
+            
+            throw new MovePieceException(this.ToString() + " can't move this way");
+            
         }
     }
 }

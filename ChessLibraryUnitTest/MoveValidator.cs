@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ChessLibrary.Tests
 {
-    class MoveValidator
+    public static class MoveValidator
     {
         public delegate void MoveValidatorDelegate();
 

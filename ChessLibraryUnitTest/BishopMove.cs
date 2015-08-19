@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static ChessLibrary.Tests.MoveValidator;
 
 namespace ChessLibrary.Tests
 {
@@ -47,16 +47,16 @@ namespace ChessLibrary.Tests
 
             Board.Instance.PlacePiece(white_bishop, origCell);
 
-            MoveValidator.MoveValidatorDelegate bishop_moveValid = delegate () { white_bishop.MoveValidation(origCell, destCell); };
+            MoveValidatorDelegate bishop_moveValid = delegate () { white_bishop.MoveValidation(origCell, destCell); };
 
             // can move along a diagonal only 
-            MoveValidator.AssertDoesNotThrowException(bishop_moveValid);
+            AssertDoesNotThrowException(bishop_moveValid);
 
             // can't remove a piece of the same color
             Bishop white_bishop2 = new Bishop(SetColor.White);
             destCell.Y = 1;
             Board.Instance.PlacePiece(white_bishop2, destCell);
-            MoveValidator.AssertDoesNotThrowException(bishop_moveValid);
+            AssertDoesNotThrowException(bishop_moveValid);
 
             // can't move while an other piece on the way
             Board.Instance.Reset();
@@ -66,7 +66,7 @@ namespace ChessLibrary.Tests
             Board.Instance.PlacePiece(white_bishop2, destCell);
             destCell.X = 7;
             destCell.Y = 1;
-            MoveValidator.AssertDoesNotThrowException(bishop_moveValid);
+            AssertDoesNotThrowException(bishop_moveValid);
         }
     }
 }
