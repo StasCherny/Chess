@@ -99,8 +99,10 @@ namespace ChessLibrary
             {
                 int length = Math.Abs(destCell.Y - origCell.Y) + 1;
                 Cell checkCell = new Cell();
-                checkCell.X = origCell.X;                
-                for (checkCell.Y = (origCell.Y < destCell.Y)? origCell.Y : destCell.Y; checkCell.Y < length; checkCell.Y++)
+                checkCell.X = origCell.X;
+                checkCell.Y = (origCell.Y < destCell.Y) ? origCell.Y : destCell.Y;
+
+                for (int i = 0; i < length; i++, checkCell.Y++)
                 {                     
                     if (Board.Instance.CheckPiece(checkCell) != null)
                     {
@@ -113,7 +115,9 @@ namespace ChessLibrary
                 int length = Math.Abs(destCell.X - origCell.X) + 1;
                 Cell checkCell = new Cell();
                 checkCell.Y = origCell.Y;
-                for (checkCell.X = (origCell.X < destCell.X) ? origCell.X : destCell.X; checkCell.X < length; checkCell.X++)
+                checkCell.X = (origCell.X < destCell.X) ? origCell.X : destCell.X;
+
+                for (int i = 0; i < length; i++,checkCell.X++)
                 {
                     if (Board.Instance.CheckPiece(checkCell) != null)
                     {

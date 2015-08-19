@@ -22,9 +22,10 @@ namespace ChessLibrary
         public override void MoveValidation(Cell origCell, Cell destCell)
         {
             base.MoveValidation(origCell, destCell);
-            
-            int numOfPieces = Board.Instance.GetNumberOfPiecesOnLine(origCell, destCell);
+
             // check if is moving along a line
+            int numOfPieces = Board.Instance.GetNumberOfPiecesOnLine(origCell, destCell);
+            // not a line
             if (numOfPieces == 0)
             {
                 throw new MovePieceException(this.ToString() + " can move only along a line");

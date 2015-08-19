@@ -24,8 +24,9 @@ namespace ChessLibrary
             // base validation
             base.MoveValidation(origCell, destCell);
 
+            // check if is moving along a diagonal
             int numOfPieces = Board.Instance.GetNumberOfPiecesOnDiagonal(origCell, destCell);
-            // check if is moving along a line
+            // not a diagonal
             if (numOfPieces == 0)
             {
                 throw new MovePieceException(this.ToString() + " can move only along a line");
