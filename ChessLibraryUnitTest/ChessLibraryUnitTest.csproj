@@ -59,6 +59,7 @@
     <Compile Include="BishopMove.cs" />
     <Compile Include="KnightMove.cs" />
     <Compile Include="QueenMove.cs" />
+    <Compile Include="KingMove.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChessLibrary\ChessLibrary.csproj">
