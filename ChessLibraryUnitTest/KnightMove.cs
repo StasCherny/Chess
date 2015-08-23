@@ -74,6 +74,6 @@ namespace ChessLibrary.Tests
             destCell.Y = 1;
             Board.Instance.PlacePiece(white_knight2, destCell);
             AssertDoesNotThrowException(knight_moveValid);           
-        }
+        }        
     }
 }

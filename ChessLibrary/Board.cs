@@ -7,10 +7,18 @@ namespace ChessLibrary
 {
     public class Board
     {
+        private static int sizeX = 8;
+        private static int sizeY = 8;
         private static Board instance = new Board();
-        private Piece[,] BoardOfPieces = new Piece[8,8];
+        private Piece[,] BoardOfPieces = new Piece[sizeX,sizeY];
 
-        private Board() { }
+        private Board() { }        
+
+        public int MaxX   { get { return sizeX - 1 ; } }
+        public int MaxY { get { return sizeY - 1; } }
+        public int MinX { get { return 0; } }
+        public int MinY { get { return 0; } }
+
 
         public static Board Instance
         {            
@@ -29,7 +37,12 @@ namespace ChessLibrary
         {
             if (newPiece == null)
             {
-                throw new Exception();
+                throw new Exception();  //TODO: throw borad exception
+            }
+
+            if (cell.X > sizeX && cell.Y > sizeY)
+            {
+                //TODO: throw borad exception
             }
 
             BoardOfPieces[cell.X, cell.Y] = newPiece;
@@ -38,6 +51,11 @@ namespace ChessLibrary
 
         public Piece CheckPiece(Cell cell)
         {
+            if (cell.X > sizeX && cell.Y > sizeY)
+            {
+                //TODO: throw borad exception
+            }
+
             return BoardOfPieces[cell.X, cell.Y];
         }
 
