@@ -28,6 +28,19 @@ namespace ChessLibrary
             }            
         }
 
+        private void CheckBoarders(Cell cell)
+        {
+            if (cell.X > MaxX || cell.Y > MaxY || cell.X < MinX || cell.Y < MinY)
+            {
+                throw new BoardException("The cell is out of the board borders");
+            }
+        }
+
+        private void CheckBoarders(Cell origCell, Cell destCell)
+        {
+            CheckBoarders(origCell);
+            CheckBoarders(destCell);
+        }
         public void Reset()
         {
             Array.Clear(BoardOfPieces,0,BoardOfPieces.Length);
@@ -37,13 +50,10 @@ namespace ChessLibrary
         {
             if (newPiece == null)
             {
-                throw new Exception();  //TODO: throw borad exception
+                throw new BoardException("Can't place a piece that is null");
             }
 
-            if (cell.X > sizeX && cell.Y > sizeY)
-            {
-                //TODO: throw borad exception
-            }
+            CheckBoarders(cell);
 
             BoardOfPieces[cell.X, cell.Y] = newPiece;
             
@@ -51,18 +61,22 @@ namespace ChessLibrary
 
         public Piece CheckPiece(Cell cell)
         {
-            if (cell.X > sizeX && cell.Y > sizeY)
-            {
-                //TODO: throw borad exception
-            }
+            CheckBoarders(cell);
 
             return BoardOfPieces[cell.X, cell.Y];
         }
 
         
         public Piece MovePiece(Piece newPiece, Cell origCell, Cell destCell)
-        {            
-            newPiece.MoveValidation(origCell, destCell);    // will thorw exception on error            
+        {
+            if (newPiece == null)
+            {
+                throw new BoardException("Can't place a piece that is null");
+            }
+
+            CheckBoarders(origCell, destCell);
+
+            newPiece.MoveValidation(origCell, destCell);    // will throw exception on error            
             Piece oldPiece = CheckPiece(destCell);
             PlacePiece(newPiece, destCell);
             BoardOfPieces[origCell.X, origCell.Y] = null;

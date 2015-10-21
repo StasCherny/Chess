@@ -41,7 +41,7 @@ namespace ChessLibrary
 
             #region up right diagonal
             Cell checkCell = cell;                        
-            // build a up right diagonal
+            // scan a up right diagonal
             while (checkCell.X < board.MaxX && checkCell.Y < board.MaxY)
             {
                 checkCell.Increment();
@@ -54,7 +54,8 @@ namespace ChessLibrary
                 
                 if (checkPiece is Bishop || checkPiece is Queen)    // only bishop or queen are threat on the whole diagonal                
                     return true;                
-                else if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
+
+                if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
                 {
                     if (checkPiece is Pawn)
                     {
@@ -64,15 +65,13 @@ namespace ChessLibrary
                     }
                     else if (checkPiece is King)                    
                         return true;                    
-                }                
-                else                
-                    break;                                        
+                }                                                                   
             }
             #endregion
 
             #region down left diagonal
             checkCell = cell;
-            // build a down left diagonal
+            // scan a down left diagonal
             while (checkCell.X > board.MinX && checkCell.Y > board.MinY)
             {
                 checkCell.Decriment();
@@ -85,7 +84,8 @@ namespace ChessLibrary
 
                 if (checkPiece is Bishop || checkPiece is Queen)    // only bishop or queen are threat on the whole diagonal                
                     return true;
-                else if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
+
+                if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
                 {
                     if (checkPiece is Pawn)
                     {
@@ -95,15 +95,13 @@ namespace ChessLibrary
                     }
                     else if (checkPiece is King)
                         return true;
-                }
-                else
-                    break;
+                }                
             }
             #endregion
 
             #region up left diagonal
             checkCell = cell;
-            // build a up left diagonal
+            // scan a up left diagonal
             while (checkCell.X > board.MinX && checkCell.Y < board.MaxY)
             {
                 checkCell.X--;
@@ -118,7 +116,8 @@ namespace ChessLibrary
 
                 if (checkPiece is Bishop || checkPiece is Queen)    // only bishop or queen are threat on the whole diagonal                
                     return true;
-                else if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
+
+                if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
                 {
                     if (checkPiece is Pawn)
                     {
@@ -128,15 +127,13 @@ namespace ChessLibrary
                     }
                     else if (checkPiece is King)
                         return true;
-                }
-                else
-                    break;
+                }                
             }
             #endregion
 
             #region down right diagonal
             checkCell = cell;
-            // build a down right diagonal
+            // scan a down right diagonal
             while (checkCell.X < board.MaxX && checkCell.Y > board.MinY)
             {
                 checkCell.X++;
@@ -151,7 +148,8 @@ namespace ChessLibrary
 
                 if (checkPiece is Bishop || checkPiece is Queen)    // only bishop or queen are threat on the whole diagonal                
                     return true;
-                else if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
+
+                if (Math.Abs(checkCell.X - cell.X) == 1 && Math.Abs(checkCell.Y - cell.Y) == 1)    // on next cell on a diagonal
                 {
                     if (checkPiece is Pawn)
                     {
@@ -161,35 +159,43 @@ namespace ChessLibrary
                     }
                     else if (checkPiece is King)
                         return true;
-                }
-                else
-                    break;
+                }                
             }
             #endregion
 
             checkCell = cell;
-            // build a line left
+            // scan a line left
             while (checkCell.X < board.MaxX)
             {
-                checkCell.X++;                
+                checkCell.X++;
+
+                checkPiece = board.CheckPiece(checkCell);
+                if (checkPiece == null)  // no piece - no check
+                    continue;
+
+                if (checkPiece.Color == this.Color) // the same color - no check    
+                    break;
+
+                if (checkPiece is Rook || checkPiece is Queen)    // only rook or queen are threat on the whole line                
+                    return true;
             }
 
             checkCell = cell;
-            // build a line right
+            // scan a line right
             while (checkCell.X > board.MinX)
             {
                 checkCell.X--;
             }
 
             checkCell = cell;
-            // build a line up
+            // scan a line up
             while (checkCell.Y < board.MaxY)
             {
                 checkCell.Y++;
             }
 
             checkCell = cell;
-            // build a line down
+            // scan a line down
             while (checkCell.Y > board.MinY)
             {
                 checkCell.Y--;

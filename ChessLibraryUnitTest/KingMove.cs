@@ -103,6 +103,14 @@ namespace ChessLibrary.Tests
             Board.Instance.PlacePiece(black_pawn, destCell);
             Assert.IsTrue(white_king.IsUnderCheck(origCell));
 
+            // isn't checked by black pawn
+            Board.Instance.Reset();
+            Board.Instance.PlacePiece(white_king, origCell);
+            destCell.X = 5;
+            destCell.Y = 3;
+            Board.Instance.PlacePiece(black_pawn, destCell);
+            Assert.IsFalse(white_king.IsUnderCheck(origCell));
+
             // is checked by black king (diagonal)
             Board.Instance.Reset();
             Board.Instance.PlacePiece(white_king, origCell);
