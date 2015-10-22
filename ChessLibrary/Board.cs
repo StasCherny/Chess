@@ -11,6 +11,7 @@ namespace ChessLibrary
         private static int sizeY = 8;
         private static Board instance = new Board();
         private Piece[,] BoardOfPieces = new Piece[sizeX,sizeY];
+        private Stack<Piece[,]> TrackedState = new Stack<Piece[,]>();
 
         public Dictionary<char, int> LetterToNumber = new Dictionary<char, int>();
         public Dictionary<int, char> NumberToLetter = new Dictionary<int, char>();
@@ -27,7 +28,7 @@ namespace ChessLibrary
             {
                 LetterToNumber.Add(letters[i], i + 1);
                 NumberToLetter.Add(i + 1, letters[i]);
-            }
+            }           
         }
 
         public static Board Instance
@@ -213,12 +214,15 @@ namespace ChessLibrary
 
         public void TrackState()
         {
-
+            Piece[,] toStore = (Piece[,])BoardOfPieces.Clone();
+            
+            TrackedState.Push(toStore);
         }
 
-        public void UndoTrakedState(int count)
+        public void UndoTrackedState(int count)
         {
-
+            TrackedState.Pop();
+            BoardOfPieces = TrackedState.Peek();
         }
     }
 }

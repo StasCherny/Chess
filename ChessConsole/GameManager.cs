@@ -87,11 +87,16 @@ namespace ChessConsole
                 GamePlayers[1] = new Player(name, SetColor.White);           
             }
             Console.WriteLine("{0}, a color of your set is {1}", GamePlayers[1].Name, GamePlayers[1].Color.ToString());
-            
+
+            // save board
+            Board.Instance.TrackState();
         }
 
         private void Move()
         {
+            // print current board state
+            Console.Write(Board.Instance.ToString());
+
             Console.WriteLine("Player {0}", GamePlayers[CurrentPlayer].Color.ToString());
             Console.Write("{0}, Make a move > ", GamePlayers[CurrentPlayer].Name);
             string move = Console.ReadLine();
@@ -135,6 +140,14 @@ namespace ChessConsole
                 Cell origCell = new Cell(Board.Instance.LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()));
                 Cell destCell = new Cell(Board.Instance.LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
                 GamePlayers[CurrentPlayer].Move(origCell, destCell);
+
+                // verify if after player's move his king is under check
+                if (GamePlayers[CurrentPlayer].IsKingUnderCheck())
+                {
+                    Console.WriteLine("{0} king is under check!!!", GamePlayers[CurrentPlayer].Color.ToString());
+                    Board.Instance.UndoTrackedState(1);
+                    return;
+                }
             }
             catch(MovePieceException e)
             {
@@ -142,9 +155,8 @@ namespace ChessConsole
                 return;
             }
 
-            // verify if after player's move his king is under check
-            if (GamePlayers[CurrentPlayer].IsKingUnderCheck())
-                Console.WriteLine("{0} king is under check!!!", GamePlayers[CurrentPlayer].Color.ToString());
+            // save board before moving to another player
+            Board.Instance.TrackState();
 
             CurrentPlayer = (CurrentPlayer + 1) % 2;
 
@@ -153,7 +165,7 @@ namespace ChessConsole
                 Console.WriteLine("{0} king is under check!!!", GamePlayers[CurrentPlayer].Color.ToString());
 
             // print current board state
-            Console.Write(Board.Instance.ToString());
+          //  Console.Write(Board.Instance.ToString());
 
         }
     }
