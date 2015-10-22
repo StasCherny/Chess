@@ -10,9 +10,14 @@ namespace ChessLibrary
         public Piece(SetColor color)
         {
             Color = color;
+            CurrentCell = new Cell(-1, -1);
         }
 
-        public SetColor Color { get; set; }
+        public SetColor Color { get; set; }   
+
+        public Cell CurrentCell { get; set; }
+
+
         public abstract string ToShortString();
         public virtual void MoveValidation(Cell origCell, Cell destCell)
         {

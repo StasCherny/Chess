@@ -13,15 +13,11 @@ namespace ChessConsole
     {
         private Player[] GamePlayers = new Player[2];
         private int CurrentPlayer;
-        private Dictionary<char,int> LetterToNumber = new Dictionary<char,int>();
+        
 
         public GameManager()
         {
-            char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
-            for (int i = 0; i < letters.Length; i++)
-            {
-                LetterToNumber.Add(letters[i], i + 1);
-            }
+            
         }
 
         static public void Start()
@@ -136,8 +132,8 @@ namespace ChessConsole
             // Move player
             try
             {
-                Cell origCell = new Cell(LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()));
-                Cell destCell = new Cell(LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
+                Cell origCell = new Cell(Board.Instance.LetterToNumber[moves[0][0]], Convert.ToInt32(moves[0][1].ToString()));
+                Cell destCell = new Cell(Board.Instance.LetterToNumber[moves[1][0]], Convert.ToInt32(moves[1][1].ToString()));
                 GamePlayers[CurrentPlayer].Move(origCell, destCell);
             }
             catch(MovePieceException e)
@@ -146,8 +142,19 @@ namespace ChessConsole
                 return;
             }
 
+            // verify if after player's move his king is under check
+            if (GamePlayers[CurrentPlayer].IsKingUnderCheck())
+                Console.WriteLine("{0} king is under check!!!", GamePlayers[CurrentPlayer].Color.ToString());
+
             CurrentPlayer = (CurrentPlayer + 1) % 2;
-            
+
+            // after one player have moved his piece verify if other's king is under check
+            if(GamePlayers[CurrentPlayer].IsKingUnderCheck())
+                Console.WriteLine("{0} king is under check!!!", GamePlayers[CurrentPlayer].Color.ToString());
+
+            // print current board state
+            Console.Write(Board.Instance.ToString());
+
         }
     }
 }

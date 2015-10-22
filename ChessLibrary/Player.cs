@@ -8,13 +8,19 @@ namespace ChessLibrary
 {
     public class Player
     {
-        private Board board = Board.Instance;
+        private Board board = Board.Instance;        
+        public King TheKing { get; private set; }
+        private King theKing;
+
+       
         // Constructor
         public Player(string name, SetColor setColor)
         {
             Name = name;
             Color = setColor;
-            SetPieces();
+            TheKing = null;
+
+            SetPieces();            
         }
 
         public string Name { get; private set; }
@@ -54,7 +60,9 @@ namespace ChessLibrary
             board.PlacePiece(new Queen(Color), cell);
             // Set king
             cell.X = 4;
-            board.PlacePiece(new King(Color), cell);
+            TheKing = new King(Color);
+            board.PlacePiece(TheKing, cell);
+            TheKing.CurrentCell = cell;            
         }
 
         public void Move(Cell origCell, Cell destCell)
@@ -77,6 +85,15 @@ namespace ChessLibrary
             
             // move our piece on the borad
             Piece removedPiece = board.MovePiece(ourPiece, origCell, destCell);
+        }
+
+        public bool IsKingUnderCheck()
+        {
+            if (TheKing != null)
+            {
+                return TheKing.IsUnderCheck(TheKing.CurrentCell);
+            }
+            return false;            
         }
     }
 }

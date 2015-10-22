@@ -37,7 +37,7 @@ namespace ChessLibrary
         public bool IsUnderCheck(Cell cell)
         {
             Board board = Board.Instance;
-            Piece checkPiece;
+            Piece checkPiece;           
 
             #region up right diagonal
             Cell checkCell = cell;                        
@@ -185,6 +185,16 @@ namespace ChessLibrary
             while (checkCell.X > board.MinX)
             {
                 checkCell.X--;
+
+                checkPiece = board.CheckPiece(checkCell);
+                if (checkPiece == null)  // no piece - no check
+                    continue;
+
+                if (checkPiece.Color == this.Color) // the same color - no check    
+                    break;
+
+                if (checkPiece is Rook || checkPiece is Queen)    // only rook or queen are threat on the whole line                
+                    return true;
             }
 
             checkCell = cell;
@@ -192,6 +202,16 @@ namespace ChessLibrary
             while (checkCell.Y < board.MaxY)
             {
                 checkCell.Y++;
+
+                checkPiece = board.CheckPiece(checkCell);
+                if (checkPiece == null)  // no piece - no check
+                    continue;
+
+                if (checkPiece.Color == this.Color) // the same color - no check    
+                    break;
+
+                if (checkPiece is Rook || checkPiece is Queen)    // only rook or queen are threat on the whole line                
+                    return true;
             }
 
             checkCell = cell;
@@ -199,6 +219,16 @@ namespace ChessLibrary
             while (checkCell.Y > board.MinY)
             {
                 checkCell.Y--;
+
+                checkPiece = board.CheckPiece(checkCell);
+                if (checkPiece == null)  // no piece - no check
+                    continue;
+
+                if (checkPiece.Color == this.Color) // the same color - no check    
+                    break;
+
+                if (checkPiece is Rook || checkPiece is Queen)    // only rook or queen are threat on the whole line                
+                    return true;
             }
 
             // check all 8 possible combination for knight

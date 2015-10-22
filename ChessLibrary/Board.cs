@@ -12,13 +12,23 @@ namespace ChessLibrary
         private static Board instance = new Board();
         private Piece[,] BoardOfPieces = new Piece[sizeX,sizeY];
 
-        private Board() { }        
-
+        public Dictionary<char, int> LetterToNumber = new Dictionary<char, int>();
+        public Dictionary<int, char> NumberToLetter = new Dictionary<int, char>();
+                
         public int MaxX   { get { return sizeX - 1 ; } }
         public int MaxY { get { return sizeY - 1; } }
         public int MinX { get { return 0; } }
         public int MinY { get { return 0; } }
 
+        private Board()
+        {
+            char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+            for (int i = 0; i < letters.Length; i++)
+            {
+                LetterToNumber.Add(letters[i], i + 1);
+                NumberToLetter.Add(i + 1, letters[i]);
+            }
+        }
 
         public static Board Instance
         {            
@@ -27,6 +37,7 @@ namespace ChessLibrary
                 return instance;
             }            
         }
+
 
         private void CheckBoarders(Cell cell)
         {
@@ -56,7 +67,7 @@ namespace ChessLibrary
             CheckBoarders(cell);
 
             BoardOfPieces[cell.X, cell.Y] = newPiece;
-            
+            newPiece.CurrentCell = cell;            
         }
 
         public Piece CheckPiece(Cell cell)
@@ -79,8 +90,11 @@ namespace ChessLibrary
             newPiece.MoveValidation(origCell, destCell);    // will throw exception on error            
             Piece oldPiece = CheckPiece(destCell);
             PlacePiece(newPiece, destCell);
-            BoardOfPieces[origCell.X, origCell.Y] = null;
+            BoardOfPieces[origCell.X, origCell.Y] = null;  // remove the piece from original cell
 
+            // if opponents piece has been removed - clear its cell
+            if (oldPiece != null)
+                oldPiece.CurrentCell = new Cell(-1,-1);
             return oldPiece;
         }
              
@@ -97,15 +111,16 @@ namespace ChessLibrary
                 }
                 sb.AppendLine();
             }
-
+            
             sb.AppendLine();
             sb.Append("    ");
             for (int i = 0; i < 8; i++)
             {
-                sb.AppendFormat("{0}   ", i + 1);
+                sb.AppendFormat("{0}   ", NumberToLetter[i + 1]);
             }
             sb.AppendLine();
             return sb.ToString();
+            
         }
 
         public bool IsLine(Cell origCell,Cell destCell)
@@ -130,9 +145,10 @@ namespace ChessLibrary
             if (origCell.X == destCell.X && origCell.Y != destCell.Y)
             {
                 int length = Math.Abs(destCell.Y - origCell.Y) + 1;
-                Cell checkCell = new Cell();
-                checkCell.X = origCell.X;
-                checkCell.Y = (origCell.Y < destCell.Y) ? origCell.Y : destCell.Y;
+                Cell checkCell = new Cell(
+                                    origCell.X,
+                                    (origCell.Y < destCell.Y) ? origCell.Y : destCell.Y
+                                    );                
 
                 for (int i = 0; i < length; i++, checkCell.Y++)
                 {                     
@@ -145,9 +161,10 @@ namespace ChessLibrary
             else if(origCell.Y == destCell.Y && origCell.X != destCell.X)   // horizontal line
             {
                 int length = Math.Abs(destCell.X - origCell.X) + 1;
-                Cell checkCell = new Cell();
-                checkCell.Y = origCell.Y;
-                checkCell.X = (origCell.X < destCell.X) ? origCell.X : destCell.X;
+                Cell checkCell = new Cell(
+                                     (origCell.X < destCell.X) ? origCell.X : destCell.X,
+                                     origCell.Y
+                                    );                
 
                 for (int i = 0; i < length; i++,checkCell.X++)
                 {
@@ -192,6 +209,16 @@ namespace ChessLibrary
             }
 
             return PiecesCount;
+        }
+
+        public void TrackState()
+        {
+
+        }
+
+        public void UndoTrakedState(int count)
+        {
+
         }
     }
 }
