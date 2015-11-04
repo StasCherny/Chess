@@ -28,10 +28,14 @@ namespace ChessLibrary
 
             if (Math.Abs(origCell.X - destCell.X) != 1 && Math.Abs(origCell.Y - destCell.Y) != 1)
             {
-                throw new MovePieceException(this.ToString() + " can move only by one cell");
+                throw new MovePieceException(ToString() + " can move only by one cell");
             }
 
-            // TODO: Check under check
+            //Check under check
+            if(IsUnderCheck(destCell))
+            {
+                throw new MovePieceException(ToString() + " can't move there due the check");
+            }
         }
 
         public bool IsUnderCheck(Cell cell)
