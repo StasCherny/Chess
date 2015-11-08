@@ -47,8 +47,8 @@ namespace ChessLibrary
             Cell checkCell = cell;                        
             // scan a up right diagonal
             while (checkCell.X < board.MaxX && checkCell.Y < board.MaxY)
-            {
-                checkCell.Increment();
+            {                
+                checkCell++;
                 checkPiece = board.CheckPiece(checkCell);
                 if (checkPiece == null)  // no piece - no check
                     continue;
@@ -78,7 +78,7 @@ namespace ChessLibrary
             // scan a down left diagonal
             while (checkCell.X > board.MinX && checkCell.Y > board.MinY)
             {
-                checkCell.Decriment();
+                checkCell--;
                 checkPiece = board.CheckPiece(checkCell);
                 if (checkPiece == null)  // no piece - no check
                     continue;

@@ -15,17 +15,15 @@ namespace ChessLibrary
             X = x;
             Y = y;
         }
-        
-        public void Decriment()
+      
+        public static Cell operator --(Cell cell)
         {
-            X--;
-            Y--;
+            return new Cell(cell.X - 1, cell.Y - 1);
         }
 
-        public void Increment()
+        public static Cell operator ++(Cell cell)
         {
-            X++;
-            Y++;
+            return new Cell(cell.X + 1, cell.Y + 1);
         }
 
         public static bool operator == (Cell a,Cell b)

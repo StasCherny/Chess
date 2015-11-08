@@ -68,8 +68,8 @@ namespace ChessLibrary
         public void Move(Cell origCell, Cell destCell)
         {            
             // transform user's coordinates to board's 
-            origCell.Decriment();
-            destCell.Decriment();            
+            origCell--;
+            destCell--;
 
             Piece ourPiece = board.CheckPiece(origCell);
 
